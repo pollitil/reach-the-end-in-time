@@ -1,0 +1,19 @@
+.tablero {
+    border: 2px solid black;
+}
+
+.nodo {
+    float: left;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(61, 60, 60);
+    border: 1px solid black;
+}
+
+.camino {
+    background-color: white;
+}
+
+.solucion {
+    background-color: green;
+}

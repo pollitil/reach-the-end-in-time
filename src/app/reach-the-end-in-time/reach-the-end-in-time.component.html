@@ -1,0 +1,37 @@
+<div class="mt-20 layout-column justify-content-center align-items-center">
+    <section class="mt-10 layout-row align-items-center justify-content-center" *ngIf="!capturarFlag">
+        <input type="number" class="large" placeholder="Numero de strings" [(ngModel)]="cantidad" (keyup.enter)="capturar()">
+        <button type="submit" class="ml-30" (click)="capturar()">CAPTURAR</button>
+    </section>
+    <section class="mt-10 layout-row align-items-center justify-content-center" *ngIf="capturarFlag && contador < cantidad">
+        <input type="text" class="large" placeholder="Fila {{ contador + 1 }}" [(ngModel)]="cadena" (keyup.enter)="siguiente()" (keypress)="keyPress($event)"> {{ cadena.length }}/{{ cantidad }}
+        <button type="submit" class="ml-30" (click)="siguiente()" *ngIf="contador < cantidad-1">SIGUIENTE</button>
+        <button type="submit" class="ml-30" (click)="siguiente()" *ngIf="contador == cantidad-1">FINALIZAR</button>
+    </section>
+    <div class="mt-15" *ngIf="capturarFlag && resultado==''">
+        <h3>Camino Introducido</h3>
+    </div>
+    <div class="mt-30 tablero" *ngIf="capturarFlag && resultado==''">
+        <div *ngFor="let nodoidx of nodos">
+            <div *ngFor="let nodo of nodoidx" class="nodo" [class.camino]="nodo.caracter == '.'">
+            </div>
+        </div>
+    </div>
+    <section class="mt-10 layout-row align-items-center justify-content-center" *ngIf="capturarFlag && contador >= cantidad">
+        <input type="number" class="large" placeholder="Movimientos Maximos" [(ngModel)]="movimientos" (keyup.enter)="calcularMovimientos()">
+        <button type="submit" class="ml-30" (click)="calcularMovimientos()">CALCULAR</button>
+        <button type="submit" class="ml-30" (click)="reset()">REINICIAR</button>
+    </section>
+    <div class="mt-15" *ngIf="resultado!=''">
+        <h4>Resultado: <small>{{resultado}}</small></h4>
+    </div>
+    <div class="mt-15" *ngIf="resultado!=''">
+        <h3>Solucion Optima En {{ totalMovimientos }} Movimientos </h3>
+    </div>
+    <div class="mt-30 tablero" *ngIf="resultado!=''">
+        <div *ngFor="let nodoidx of nodos">
+            <div *ngFor="let nodo of nodoidx" class="nodo" [class.camino]="nodo.caracter == '.' && !nodo.visitado" [class.solucion]="nodo.caracter == '.' && nodo.visitado">
+            </div>
+        </div>
+    </div>
+</div>
